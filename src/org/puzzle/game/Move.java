@@ -8,22 +8,13 @@ package org.puzzle.game;
  */
 public class Move {
 
-	
-	public enum MoveDirection{
-		UP,
-		DOWN,
-		LEFT,
-		RIGHT
-	}
-	
-	
-	private int sourceIndex;
-	private int destinationIndex;
+	private int sourcePosition;
+	private int targetPosition;
 
-	public Move(int sourceIndex, int destinationIndex) {
+	public Move(int sourcePosition, int targetPosition) {
 		super();
-		this.sourceIndex = sourceIndex;
-		this.destinationIndex = destinationIndex;
+		this.sourcePosition = sourcePosition;
+		this.targetPosition = targetPosition;
 	}
 	
 	
@@ -31,8 +22,8 @@ public class Move {
 	 * Get the start position in the puzzle
 	 * @return
 	 */
-	public int getSourceIndex() {
-		return sourceIndex;
+	public int getSourcePosition() {
+		return sourcePosition;
 	}
 	
 	
@@ -40,8 +31,8 @@ public class Move {
 	 * Get the destination position
 	 * @return
 	 */
-	public int getDestinationIndex() {
-		return destinationIndex;
+	public int getTargetPosition() {
+		return targetPosition;
 	}
 	
 	

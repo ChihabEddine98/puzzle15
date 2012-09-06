@@ -15,6 +15,7 @@ public class IDAStarSolver implements PuzzleSolver {
 
 	
 	private int treshold;
+	private int minimumAmountExceeded;
 	
 	
 	@Override

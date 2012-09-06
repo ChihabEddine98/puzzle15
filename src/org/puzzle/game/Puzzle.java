@@ -55,24 +55,38 @@ public class Puzzle {
 	}
 	
 	
+	
 	/**
-	 * Calculates the absolute position in the array (from 0 to N x N) of a {@link PuzzleComponent} 
-	 * @param i The {@link #getPuzzleComponents()} Array position
-	 * @param j The {@link #getPuzzleComponents()} Array position
-	 * @return
+	 * Get the component that is at the given absolute position
+	 * @param absolutePosition The position starting by 0 going to N-1
+	 * @return The {@link PuzzleComponent} at the given position
 	 */
-	public int getAbsolutePosition(int i, int j){
-		return i*n + j;
+	public PuzzleComponent getComponentAt(int absolutePosition){
+		Pair<Integer, Integer> pos = Util.getArrayCoordinate(absolutePosition, n);
+		return pieces[pos.first][pos.second];
 	}
 	
 	
+	public void setComponentAt(int absolutePosition, PuzzleComponent c){
+		Pair<Integer, Integer> pos = Util.getArrayCoordinate(absolutePosition, n);
+		pieces[pos.first][pos.second] = c;
+		c.setCurrentPosition(absolutePosition);
+	}
+	
+	
+	
 	/**
-	 * Calculate the array indexes of a given absolute position
-	 * @param absolutePosition
+	 * Checks, if a puzzle is solved
 	 * @return
 	 */
-	public Pair<Integer, Integer> getArrayCoordinate(int absolutePosition){
-		return new Pair<Integer, Integer>(absolutePosition/n, absolutePosition % n);
+	public boolean isPuzzleSolved(){
+		for (int i = 0; i<n; i++)
+			for (int j = 0; j<n; j++)
+				if (pieces[i][j].getCurrentPosition() != pieces[i][j].getFinalPosition())
+					return false;
+		
+		
+		return true;
 	}
 	
 	

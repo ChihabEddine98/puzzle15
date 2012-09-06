@@ -31,5 +31,9 @@ public class PuzzleComponent {
 		return currentPosition;
 	}
 	
+	public void setCurrentPosition(int currentPos){
+		this.currentPosition = currentPos;
+	}
+	
 	
 }
