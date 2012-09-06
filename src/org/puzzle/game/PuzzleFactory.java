@@ -1,6 +1,8 @@
 package org.puzzle.game;
 
 import java.util.Random;
+
+import android.util.Log;
 import android.util.Pair;
 
 /**
@@ -39,9 +41,10 @@ public class PuzzleFactory {
 		
 		do{
 			// shuffle
-			for (int i =0; i<n*n-1; i++)
+			for (int i =0; i<n*n-2; i++)
 			{
-				int posToSwap = r.nextInt(n*n-2 -i ) + i;
+				Log.i("val", i+" "+ (n * n - 2 - i));
+				int posToSwap = r.nextInt(n * n - 2 - i ) + i;
 				swapComponents(i, posToSwap, n, c);
 			}
 		}

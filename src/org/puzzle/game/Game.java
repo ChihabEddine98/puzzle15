@@ -2,7 +2,8 @@ package org.puzzle.game;
 
 import java.util.Date;
 
-import org.puzzle.game.event.PuzzleGeneratedListener;
+import org.puzzle.game.event.GameStartedEvent;
+import org.puzzle.game.event.GameStartedListener;
 import org.puzzle.game.event.PuzzleSolvedEvent;
 import org.puzzle.game.event.PuzzleSolvedListener;
 import org.puzzle.game.event.PuzzleTileMovedEvent;
@@ -27,8 +28,9 @@ public class Game {
 	
 	private PuzzleSolvedListener solvedListener;
 	private PuzzleTileMovedListener movedListener;
-	private PuzzleGeneratedListener generatedListener;
+	private GameStartedListener gameStartedListener;
 	
+	private Thread generatorThread;
 
 	public Game(){
 	}
@@ -44,8 +46,8 @@ public class Game {
 	}
 
 
-	public void setPuzzleGeneratedListener(PuzzleGeneratedListener generatedListener) {
-		this.generatedListener = generatedListener;
+	public void setGameStartedListener(GameStartedListener listener) {
+		this.gameStartedListener = listener;
 	}
 	
 	public Puzzle getPuzzle(){
@@ -56,10 +58,27 @@ public class Game {
 		this.puzzle = puzzle;
 	}
 	
-	public void start(){
-		moveCount = 0;
-		startTime = new Date().getTime();
-		endTime = null;
+	/**
+	 * Start a new Puzzle game with a new generated and solvable puzzle
+	 */
+	public void startWithNewPuzzle(final int n){
+		
+		// stop previous running threads
+		if (generatorThread!= null && generatorThread.isAlive())
+			generatorThread.interrupt();
+		
+		generatorThread = new Thread(){
+			
+			public void run(){
+				puzzle = PuzzleFactory.create(n);
+				moveCount = 0;
+				startTime = new Date().getTime();
+				endTime = null;
+				gameStartedListener.onGameStarted(new GameStartedEvent(puzzle));
+			}
+		};
+		
+		generatorThread.start();
 	}
 	
 	
@@ -159,7 +178,10 @@ public class Game {
 	}
 	
 	
-	
+	/**
+	 * Get the current number of moves, that were already performed
+	 * @return
+	 */
 	public int getMoveCount(){
 		return moveCount;
 	}

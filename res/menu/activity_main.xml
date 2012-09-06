@@ -3,5 +3,5 @@
         android:title="@string/menu_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />
-    <item android:id="@+id/itemNewGame" android:title="@string/itemNewGameLabel" android:showAsAction="always|withText"></item>
+    <item android:id="@+id/newGameItem" android:title="@string/itemNewGameLabel" android:showAsAction="always|withText"></item>
 </menu>
