@@ -9,7 +9,6 @@ import org.puzzle.game.event.PuzzleSolvedListener;
 import org.puzzle.game.event.PuzzleTileMovedEvent;
 import org.puzzle.game.event.PuzzleTileMovedListener;
 
-import android.util.Log;
 
 /**
  * This class represents a game instance and holds the puzzle,
@@ -100,7 +99,7 @@ public class Game {
 			return (new Date().getTime() - startTime ) / 1000;
 		
 		else
-			return endTime - startTime / 1000;
+			return (endTime - startTime) / 1000;
 		
 	}
 	
@@ -114,7 +113,7 @@ public class Game {
 		
 		boolean valid = isValidMove(m);
 		
-		if (valid)
+		if (!valid)
 			throw new InvalidMoveException();
 		
 		PuzzleComponent c = puzzle.getComponentAt(m.getSourcePosition());
@@ -146,23 +145,13 @@ public class Game {
 		int sp = m.getSourcePosition();
 		int tp = m.getTargetPosition();
 
-		Log.i("valid", sp+"|"+tp);
-		
-		// out of bounds check
-		if (tp <0 || tp >=n || sp<0 || sp>=n)
-			return false;
 		
 		PuzzleComponent source = puzzle.getComponentAt(m.getSourcePosition());
 		PuzzleComponent target = puzzle.getComponentAt(m.getTargetPosition());
 		
-		Log.i("valid", "before instance check passed");
-		
 		
 		if (!(source instanceof PuzzleTile) || !(target instanceof FreeSpace))
 			return false;
-		
-		Log.i("valid", "instance check passed");
-		
 		
 		
 		// check if source tile is on the left edge

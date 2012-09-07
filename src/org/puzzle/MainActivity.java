@@ -50,6 +50,7 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
         // init the game
         game = new Game();
         game.setPuzzleGeneratedListener(this);
+        game.setPuzzleSolvedListener(this);
         
         // init gui
         setContentView(R.layout.activity_main);

@@ -98,10 +98,7 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 			pair = Util.getArrayCoordinate(c.getCurrentPosition(), n);
 			y = pair.first * w;
 			x = pair.second * w;
-			
 
-			Log.i("debOut", i+" | "+pair.first+" "+pair.second+" | "+c.getCurrentPosition()+" | "+c.getFinalPosition()+ " | "+cx+" "+cy+" | "+x+" "+y);
-			
 			Bitmap tilePic = Bitmap.createBitmap(background, cx, cy, w, w);
 			Drawable d = new PuzzleTileDrawable((PuzzleTile) c, tilePic, x, y );
 			drawableMapping.put(c, d);
@@ -150,29 +147,40 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 			
 			
 			case MotionEvent.ACTION_UP:
-				targetTile = getComponentWithCoordinate(me.getX(), me.getY());
-				
-				try {
-					Move m = new Move(sourceTile.getCurrentPosition(), targetTile.getCurrentPosition());
-					game.executeMove(m);
-				} catch (InvalidMoveException e) {
-					// TODO Show a notification, that this move is not allowed
-					//e.printStackTrace();
-					Log.i("invalid", "Invalid Move");
+				if (me.getX()>=0 && me.getX()<=getWidth() 
+					&& me.getY()>=0 && me.getY()<=getHeight()) {
+					
+					targetTile = getComponentWithCoordinate(me.getX(), me.getY());
+					
+					try {
+						Move m = new Move(sourceTile.getCurrentPosition(), targetTile.getCurrentPosition());
+						game.executeMove(m);
+					} catch (InvalidMoveException e) {
+						// TODO Show a notification, that this move is not allowed
+						//e.printStackTrace();
+						Log.i("invalid", "Invalid Move");
+					}
+					
+					sourceTile = null;
+					targetTile = null;
 				}
-				
-				sourceTile = null;
-				targetTile = null;
 				break;
 
 		}
+		 
 		
 		
 		return true;
 	}
 
 	
-	
+	/**
+	 * Get the component that is displayed on screen on the specified x/y position
+	 * @param x
+	 * @param y
+	 * @return The component or null, if no component is there 
+	 * (for example: the MotionEvent.UP has been fired outside the canvas area)
+	 */
 	private PuzzleComponent getComponentWithCoordinate(float x, float y){
 		
 		float tileWidth = getWidth() / game.getPuzzle().getN();
@@ -182,6 +190,9 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 		
 		
 		int pos = Util.getAbsolutePosition(arrayX, arrayY, game.getPuzzle().getN());
+		
+//		if (pos >game.getPuzzle().getN() || pos<0)
+//			return null;
 		
 		return game.getPuzzle().getComponentAt(pos);
 		

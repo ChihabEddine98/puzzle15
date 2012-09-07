@@ -1,6 +1,6 @@
 package org.puzzle.game;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 import android.util.Log;
 import android.util.Pair;
@@ -38,46 +38,31 @@ public class PuzzleFactory {
 		p.getPuzzleComponents()[n-1][n-1] = new FreeSpace(tmp, tmp);
 				
 		
-		Random r = new Random();
+		SecureRandom r = new SecureRandom();
 		
 		// shuffle
 //		for (int i =0; i<n*n-1; i++)
 //		{
-//			int posToSwap = r.nextInt(n * n - 1 - i ) + i;
+//			int randomRange =n * n - 1 - i;
+//			int rand = r.nextInt(randomRange);
+//			int posToSwap = rand + i;
 //			Log.i("val", i+" "+" swap "+posToSwap);
 //			swapComponents(i, posToSwap, n, c);
 //		}
-//	
+		
+		
+		for (int i = n*n - 2; i > 0; --i) {
+			int k = r.nextInt(n + 1);
+			swapComponents(i, k, n, c);
+			Log.i("val", i+" "+" swap "+k);
+		}
+	
 		
 		p.setSolvable(isSolvable(p));
 		
 		return p;
 		
 	}
-	
-	/*
-	private static void printArray(PuzzleComponent[][] c, int n){
-		
-		for (int i = 0; i<n; i++)
-		{
-			for (int j=0; j<n; j++)
-				System.out.print(c[i][j].getCurrentPosition()+"|");
-			
-			System.out.println();
-			
-		}
-		
-		
-		
-		for (int i = 0; i<n*n; i++){
-			Pair<Integer,Integer> pair = Util.getArrayCoordinate(i, n);
-			System.out.println(pair.first+" "+ pair.second+" | "+c[pair.first][pair.second].getCurrentPosition() +" | "+c[pair.first][pair.second].getFinalPosition() +" | "+Util.getAbsolutePosition(pair.first, pair.second, n));
-		}
-		
-		
-	}
-	*/
-
 	
 
 	/**
