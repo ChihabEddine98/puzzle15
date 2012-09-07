@@ -14,10 +14,10 @@ import android.graphics.Paint.Style;
  */
 public class FreeSpaceDrawable implements Drawable{
 
-	private int x, y, width;
+	private float x, y, width;
 	private FreeSpace freeSpace;
 	
-	public FreeSpaceDrawable(FreeSpace freeSpace, int x, int y, int width){
+	public FreeSpaceDrawable(FreeSpace freeSpace, float x, float y, float width){
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -25,22 +25,22 @@ public class FreeSpaceDrawable implements Drawable{
 	}
 	
 	@Override
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 
 	@Override
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 
 	@Override
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 
 	@Override
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 

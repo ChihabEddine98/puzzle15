@@ -30,8 +30,8 @@ public class PuzzleFactory {
 			for (int j = 0; j<n; j++){
 				int pos = Util.getAbsolutePosition(i, j, n);
 					c[i][j] = new PuzzleTile(pos, pos);
-					Log.i("create", ""+pos+" | "+i+" "+ j);
 			}
+		
 		
 		// Place the FreeSpace in the buttom-right corner
 		int tmp = Util.getAbsolutePosition(n-1, n-1, n);
@@ -41,13 +41,13 @@ public class PuzzleFactory {
 		Random r = new Random();
 		
 		// shuffle
-		for (int i =0; i<n*n-1; i++)
-		{
-			int posToSwap = r.nextInt(n * n - 1 - i ) + i;
-			Log.i("val", i+" "+" swap "+posToSwap);
-			swapComponents(i, posToSwap, n, c);
-		}
-	
+//		for (int i =0; i<n*n-1; i++)
+//		{
+//			int posToSwap = r.nextInt(n * n - 1 - i ) + i;
+//			Log.i("val", i+" "+" swap "+posToSwap);
+//			swapComponents(i, posToSwap, n, c);
+//		}
+//	
 		
 		p.setSolvable(isSolvable(p));
 		
@@ -55,6 +55,28 @@ public class PuzzleFactory {
 		
 	}
 	
+	/*
+	private static void printArray(PuzzleComponent[][] c, int n){
+		
+		for (int i = 0; i<n; i++)
+		{
+			for (int j=0; j<n; j++)
+				System.out.print(c[i][j].getCurrentPosition()+"|");
+			
+			System.out.println();
+			
+		}
+		
+		
+		
+		for (int i = 0; i<n*n; i++){
+			Pair<Integer,Integer> pair = Util.getArrayCoordinate(i, n);
+			System.out.println(pair.first+" "+ pair.second+" | "+c[pair.first][pair.second].getCurrentPosition() +" | "+c[pair.first][pair.second].getFinalPosition() +" | "+Util.getAbsolutePosition(pair.first, pair.second, n));
+		}
+		
+		
+	}
+	*/
 
 	
 

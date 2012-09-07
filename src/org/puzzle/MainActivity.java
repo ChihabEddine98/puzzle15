@@ -142,7 +142,7 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
 			   	 }
 			   	 
 			   	 //enable moving
-			   	 canvas.setOnTouchListener(canvas);
+			   	 canvas.setCanMoveTiles(true);
 			   	 canvas.setPuzzle(p, width);
 			   	
 			}
@@ -194,7 +194,7 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
 	@Override
 	public void onPuzzleSolved(PuzzleSolvedEvent e) {
 		// disable moving
-		canvas.setOnTouchListener(null);
+		canvas.setCanMoveTiles(false);
 		updateStatusText("Gelöst in "+e.getElapsedTime()+" Sek. mit "+e.getMoves()+" Zügen");
 	}
 	

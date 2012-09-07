@@ -1,6 +1,5 @@
 package org.puzzle.game.event;
 
-import org.puzzle.game.PuzzleComponent;
 import org.puzzle.game.PuzzleTile;
 
 /**

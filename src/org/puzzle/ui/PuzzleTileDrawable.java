@@ -27,11 +27,11 @@ public class PuzzleTileDrawable implements Drawable{
 	/**
 	 * The x,y coordinates are referring to the top left corner of this {@link Drawable}
 	 */
-	private int x, y;
+	private float x, y;
 	
 	private PuzzleTile tile;
 	
-	public PuzzleTileDrawable(PuzzleTile tile, Bitmap bitmap, int x, int y){
+	public PuzzleTileDrawable(PuzzleTile tile, Bitmap bitmap, float x, float y){
 		this.bitmap = bitmap;
 		this.x = x;
 		this.y = y;
@@ -61,22 +61,22 @@ public class PuzzleTileDrawable implements Drawable{
 	}
 
 	@Override
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 
 	@Override
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 
 	@Override
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 
 	@Override
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 	

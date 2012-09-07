@@ -11,6 +11,10 @@ import android.util.Pair;
  */
 public class Puzzle {
 	
+	/**
+	 * This array holds the puzzle pieces and the free space.
+	 * pieces[i][j] returnes the value of the row number i and column number j
+	 */
 	private PuzzleComponent pieces[][];
 	private int n;
 	private boolean solvable;

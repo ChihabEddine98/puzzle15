@@ -17,11 +17,17 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * This component draws the puzzle components on screen
+ * @author Hannes Dorfmann
+ *
+ */
 public class PuzzleCanvas extends View implements View.OnTouchListener,
 													  PuzzleTileMovedListener{
 
@@ -35,6 +41,7 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 	private FreeSpace freeSpace;
 	
 	private Game game;
+	private boolean canMove;
 	
 	
 	public PuzzleCanvas(Game game, Context context)
@@ -42,14 +49,32 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 	    super(context);
 	    this.game = game;
 	    game.setPuzzleMovedListener(this);
-	    
-	    setFocusable(true);
+	    init();
+	  }
+	
+	private void init(){
+		setFocusable(true);
 	    setFocusableInTouchMode(true);
 	    this.setOnTouchListener(this);
 	    paint = new Paint();
 	    drawableMapping = new HashMap<PuzzleComponent, Drawable>();
-	   
-	  }
+	}
+	
+	
+	public PuzzleCanvas(Context context){
+		super(context);
+		init();
+	}
+	
+	public PuzzleCanvas(Context context, AttributeSet attrs){
+		super(context, attrs);
+		init();
+	}
+	
+	public PuzzleCanvas(Context context, AttributeSet attrs, int defStyle){
+		super(context, attrs, defStyle);
+		init();
+	}
 	
 	
 	
@@ -67,21 +92,23 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 			PuzzleComponent c = p.getComponentAt(i);
 			// calculate crop coordinates
 			pair = Util.getArrayCoordinate(c.getFinalPosition(), n);
-			cx = pair.first * w;
-			cy = pair.second * w;
+			cy = pair.first * w;
+			cx = pair.second * w;
 			
 			pair = Util.getArrayCoordinate(c.getCurrentPosition(), n);
-			x = pair.first * w;
-			y = pair.second * w;
+			y = pair.first * w;
+			x = pair.second * w;
 			
-			Log.i("bitmap", i+" "+x+" "+y+" | "+cx+" "+cy);
+
+			Log.i("debOut", i+" | "+pair.first+" "+pair.second+" | "+c.getCurrentPosition()+" | "+c.getFinalPosition()+ " | "+cx+" "+cy+" | "+x+" "+y);
+			
 			Bitmap tilePic = Bitmap.createBitmap(background, cx, cy, w, w);
 			Drawable d = new PuzzleTileDrawable((PuzzleTile) c, tilePic, x, y );
 			drawableMapping.put(c, d);
 		}
 		
 		
-		// finaly the free space is placed in the bottom right corner
+		// the free space is placed in the bottom right corner
 		freeSpace = (FreeSpace) p.getComponentAt(n*n-1);
 		pair = Util.getArrayCoordinate(freeSpace.getCurrentPosition(), n);
 		x = pair.first * w;
@@ -90,8 +117,6 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 		drawableMapping.put( freeSpace, fsd );
 		
 		
-			
-		Log.i("set puzzle"," "+getWidth()+" "+ getHeight());
 		invalidate();
 	}
 	  
@@ -117,6 +142,7 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 	@Override
 	public boolean onTouch(View v, MotionEvent me) {
 		
+		if (canMove)
 		switch (me.getAction()) {
 			case MotionEvent.ACTION_DOWN:
 				sourceTile = getComponentWithCoordinate(me.getX(), me.getY());
@@ -130,8 +156,9 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 					Move m = new Move(sourceTile.getCurrentPosition(), targetTile.getCurrentPosition());
 					game.executeMove(m);
 				} catch (InvalidMoveException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					// TODO Show a notification, that this move is not allowed
+					//e.printStackTrace();
+					Log.i("invalid", "Invalid Move");
 				}
 				
 				sourceTile = null;
@@ -150,11 +177,11 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 		
 		float tileWidth = getWidth() / game.getPuzzle().getN();
 		
-		int arrayX = (int) (x / tileWidth);
-		int arrayY = (int) (y / tileWidth);
+		int arrayY = (int) (x / tileWidth);
+		int arrayX = (int) (y / tileWidth);
+		
 		
 		int pos = Util.getAbsolutePosition(arrayX, arrayY, game.getPuzzle().getN());
-		Log.i("move", pos +" "+arrayX + " "+ arrayY);
 		
 		return game.getPuzzle().getComponentAt(pos);
 		
@@ -170,8 +197,8 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 		int w = getWidth() / n;
 		PuzzleComponent c = e.getPuzzleTile();
 		Pair<Integer, Integer> pair = Util.getArrayCoordinate(c.getCurrentPosition(), n);
-		int x = pair.first * w;
-		int y = pair.second * w;
+		int y = pair.first * w;
+		int x = pair.second * w;
 		
 		Drawable d = drawableMapping.get(c);
 		d.setX(x);
@@ -180,8 +207,8 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 
 		// recalculate position of freespace
 		pair = Util.getArrayCoordinate(freeSpace.getCurrentPosition(), n);
-		x = pair.first * w;
-		y = pair.second * w;
+		y = pair.first * w;
+		x = pair.second * w;
 		
 		d = drawableMapping.get(freeSpace);
 		d.setX(x);
@@ -190,5 +217,10 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 		Log.i("redraw", "redraw");
 		
 		invalidate();
+	}
+	
+	
+	public void setCanMoveTiles(boolean canMove){
+		this.canMove = canMove;
 	}
 }

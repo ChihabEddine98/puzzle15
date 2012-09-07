@@ -5,6 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Pair;
 
+/**
+ * This class provides some useful methods
+ * @author Hannes Dorfmann
+ *
+ */
 public class Util {
 
 	
