@@ -6,5 +6,7 @@
     <string name="title_activity_main">Puzzle</string>
     <string name="itemNewGameLabel">NEU</string>
     <string name="newGameButtonLabel">Neues Spiel</string>
+    <string name="notStartedInfo">Spiel nicht gestartet</string>
+    <string name="notSolvableInfo">nicht lösbar</string>
 
 </resources>

@@ -2,8 +2,8 @@ package org.puzzle.game;
 
 import java.util.Date;
 
-import org.puzzle.game.event.GameStartedEvent;
-import org.puzzle.game.event.GameStartedListener;
+import org.puzzle.game.event.PuzzleGeneratedEvent;
+import org.puzzle.game.event.PuzzleGeneratedListener;
 import org.puzzle.game.event.PuzzleSolvedEvent;
 import org.puzzle.game.event.PuzzleSolvedListener;
 import org.puzzle.game.event.PuzzleTileMovedEvent;
@@ -28,7 +28,7 @@ public class Game {
 	
 	private PuzzleSolvedListener solvedListener;
 	private PuzzleTileMovedListener movedListener;
-	private GameStartedListener gameStartedListener;
+	private PuzzleGeneratedListener generatedListener;
 	
 	private Thread generatorThread;
 
@@ -46,8 +46,8 @@ public class Game {
 	}
 
 
-	public void setGameStartedListener(GameStartedListener listener) {
-		this.gameStartedListener = listener;
+	public void setPuzzleGeneratedListener(PuzzleGeneratedListener listener) {
+		this.generatedListener = listener;
 	}
 	
 	public Puzzle getPuzzle(){
@@ -57,6 +57,8 @@ public class Game {
 	public void setPuzzle(Puzzle puzzle) {
 		this.puzzle = puzzle;
 	}
+	
+	
 	
 	/**
 	 * Start a new Puzzle game with a new generated and solvable puzzle
@@ -74,7 +76,7 @@ public class Game {
 				moveCount = 0;
 				startTime = new Date().getTime();
 				endTime = null;
-				gameStartedListener.onGameStarted(new GameStartedEvent(puzzle));
+				generatedListener.onPuzzleGenerated(new PuzzleGeneratedEvent(puzzle));
 			}
 		};
 		
@@ -122,7 +124,7 @@ public class Game {
 		movedListener.onPuzzleTileMoved(new PuzzleTileMovedEvent((PuzzleTile) c, moveCount));
 		
 		// Check if puzzle is solved
-		if (puzzle.isPuzzleSolved()){
+		if (puzzle.isSolved()){
 			stop();
 			solvedListener.onPuzzleSolved(new PuzzleSolvedEvent(getElapsedTime(), moveCount));
 		}

@@ -1,4 +1,4 @@
-package org.puzzle.ui.graphics;
+package org.puzzle.ui;
 
 public class FreeSpaceDrawable {
 

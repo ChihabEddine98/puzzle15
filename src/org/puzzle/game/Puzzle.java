@@ -13,6 +13,7 @@ public class Puzzle {
 	
 	private PuzzleComponent pieces[][];
 	private int n;
+	private boolean solvable;
 	
 	
 	/**
@@ -79,7 +80,7 @@ public class Puzzle {
 	 * Checks, if a puzzle is solved
 	 * @return
 	 */
-	public boolean isPuzzleSolved(){
+	public boolean isSolved(){
 		for (int i = 0; i<n; i++)
 			for (int j = 0; j<n; j++)
 				if (pieces[i][j].getCurrentPosition() != pieces[i][j].getFinalPosition())
@@ -90,5 +91,24 @@ public class Puzzle {
 	}
 	
 	
+	
+	/**
+	 * Determines if the given puzzle can be solved,
+	 * by counting the permutation inversions.
+	 * If the count of permutation inversions is odd, then the 
+	 * puzzle can be solved, otherwise it can't be solved.
+	 * For more details see http://mathworld.wolfram.com/15Puzzle.html
+	 * @param p The {@link Puzzle}
+	 * @return
+	 */
+	public boolean isSolvable(){
+		return solvable;
+	}
+	
+	
+	
+	void setSolvable(boolean solvable){
+		this.solvable = solvable;
+	}
 
 }
