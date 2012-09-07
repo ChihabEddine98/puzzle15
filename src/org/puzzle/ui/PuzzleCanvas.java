@@ -77,7 +77,11 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 	}
 	
 	
-	
+	/**
+	 * Set the puzzle and generates the {@link Drawable}s
+	 * @param p
+	 * @param width
+	 */
 	public void setPuzzle(Puzzle p, int width){
 		
 		drawableMapping.clear();
@@ -225,12 +229,14 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 		d.setX(x);
 		d.setY(y);
 		
-		Log.i("redraw", "redraw");
-		
 		invalidate();
 	}
 	
 	
+	/**
+	 * Enable or disable the possibility to move puzzle tiles
+	 * @param canMove
+	 */
 	public void setCanMoveTiles(boolean canMove){
 		this.canMove = canMove;
 	}

@@ -109,7 +109,10 @@ public class Puzzle {
 		return solvable;
 	}
 	
-	
+	/**
+	 * This method is used by the {@link PuzzleFactory}
+	 * @param solvable
+	 */
 	void setSolvable(boolean solvable){
 		this.solvable = solvable;
 	}

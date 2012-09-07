@@ -2,7 +2,6 @@ package org.puzzle.game;
 
 import java.security.SecureRandom;
 
-import android.util.Log;
 import android.util.Pair;
 
 /**
@@ -41,20 +40,9 @@ public class PuzzleFactory {
 		SecureRandom r = new SecureRandom();
 		
 		// shuffle
-//		for (int i =0; i<n*n-1; i++)
-//		{
-//			int randomRange =n * n - 1 - i;
-//			int rand = r.nextInt(randomRange);
-//			int posToSwap = rand + i;
-//			Log.i("val", i+" "+" swap "+posToSwap);
-//			swapComponents(i, posToSwap, n, c);
-//		}
-		
-		
 		for (int i = n*n - 2; i > 0; --i) {
 			int k = r.nextInt(n + 1);
 			swapComponents(i, k, n, c);
-			Log.i("val", i+" "+" swap "+k);
 		}
 	
 		

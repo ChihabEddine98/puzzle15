@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 /**
- * 
+ * This interface defines the basic darawable api
  * @author Hannes Dorfmann
  *
  */

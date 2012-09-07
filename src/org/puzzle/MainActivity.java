@@ -12,7 +12,6 @@ import org.puzzle.ui.PuzzleCanvas;
 import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +24,11 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/**
+ * This is the main activity, the entry point on android
+ * @author Hannes Dorfmann
+ *
+ */
 public class MainActivity extends Activity implements PuzzleGeneratedListener,
 														  PuzzleSolvedListener,
 														  OnClickListener {
@@ -68,9 +72,6 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
         
         canvas = new PuzzleCanvas(game, this);
         
-        
-        Log.i("deb", ""+mainLayout+ " "+initialView+" "+loadingView + " "+ puzzleView );
-        
         Button b = (Button) findViewById(R.id.startNewGameButton);
         b.setOnClickListener(this);
         
@@ -89,8 +90,6 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
 	public void onPuzzleGenerated(final PuzzleGeneratedEvent e) {
 		
 		
-   	 	Log.i("solvable", ""+e.getPuzzle().isSolvable());
-   	 	
 		runOnUiThread(new Runnable() {
 		     public void run() {
 		    	
@@ -109,7 +108,11 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
 	}
 	
 	
-	
+	/**
+	 * Initialize the {@link PuzzleCanvas} (if not done yet) and 
+	 * set the current puzzle instance
+	 * @param p
+	 */
 	private void initCanvas(final Puzzle p){
 		
 		runOnUiThread(new Runnable() {
@@ -152,7 +155,10 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
 	}
 	
 	
-	
+	/**
+	 * Set the message label
+	 * @param msg
+	 */
 	private void updateStatusText(final String msg){
 		runOnUiThread(new Runnable() {
 			
@@ -175,7 +181,9 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
 		}
 	}
 	
-	
+	/**
+	 * Start a new game by generating a new Puzzle
+	 */
 	private void startNewGame(){
 		mainLayout.removeAllViews();
 		mainLayout.addView(loadingView);

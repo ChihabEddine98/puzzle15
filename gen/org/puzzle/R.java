@@ -18,8 +18,7 @@ public final class R {
     public static final class id {
         public static final int initialLayout=0x7f070001;
         public static final int mainLayout=0x7f070000;
-        public static final int menu_settings=0x7f070006;
-        public static final int newGameItem=0x7f070007;
+        public static final int newGameItem=0x7f070006;
         public static final int progressBar1=0x7f070003;
         public static final int puzzleInfoLabel=0x7f070005;
         public static final int puzzlePlaceHolder=0x7f070004;
