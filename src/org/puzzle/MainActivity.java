@@ -5,6 +5,8 @@ import org.puzzle.game.Puzzle;
 import org.puzzle.game.Util;
 import org.puzzle.game.event.PuzzleGeneratedEvent;
 import org.puzzle.game.event.PuzzleGeneratedListener;
+import org.puzzle.game.event.PuzzleSolvedEvent;
+import org.puzzle.game.event.PuzzleSolvedListener;
 import org.puzzle.ui.PuzzleCanvas;
 
 import android.app.Activity;
@@ -23,7 +25,8 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements PuzzleGeneratedListener, 
+public class MainActivity extends Activity implements PuzzleGeneratedListener,
+														  PuzzleSolvedListener,
 														  OnClickListener {
 	
 	private static final int N = 4;
@@ -62,7 +65,7 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
         
         
         
-        canvas = new PuzzleCanvas(this);
+        canvas = new PuzzleCanvas(game, this);
         
         
         Log.i("deb", ""+mainLayout+ " "+initialView+" "+loadingView + " "+ puzzleView );
@@ -138,6 +141,8 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
 				   	
 			   	 }
 			   	 
+			   	 //enable moving
+			   	 canvas.setOnTouchListener(canvas);
 			   	 canvas.setPuzzle(p, width);
 			   	
 			}
@@ -184,6 +189,13 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
 		}
 		
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onPuzzleSolved(PuzzleSolvedEvent e) {
+		// disable moving
+		canvas.setOnTouchListener(null);
+		updateStatusText("Gelöst in "+e.getElapsedTime()+" Sek. mit "+e.getMoves()+" Zügen");
 	}
 	
 	

@@ -54,7 +54,7 @@ public class PuzzleTileDrawable implements Drawable{
 		paint.setColor(Color.WHITE);
 		paint.setTextAlign(Align.CENTER);
 		paint.setTypeface(Typeface.MONOSPACE);
-		c.drawText(""+tile.getFinalPosition(),x+numberSpace+(fontSize),y+numberSpace+(fontSize+3), paint);
+		c.drawText(""+(tile.getFinalPosition()+1),x+numberSpace+(fontSize),y+numberSpace+(fontSize+3), paint);
 		paint.setTextSize(fontSize);
 		
 		

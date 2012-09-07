@@ -22,8 +22,6 @@ public class PuzzleFactory {
 	public static Puzzle create(int n){
 		
 		Puzzle p = new Puzzle(n);
-		int tmp = Util.getAbsolutePosition(n-1, n-1, n);
-		
 		
 		
 		PuzzleComponent[][] c = p.getPuzzleComponents();
@@ -32,18 +30,20 @@ public class PuzzleFactory {
 			for (int j = 0; j<n; j++){
 				int pos = Util.getAbsolutePosition(i, j, n);
 					c[i][j] = new PuzzleTile(pos, pos);
+					Log.i("create", ""+pos+" | "+i+" "+ j);
 			}
 		
 		// Place the FreeSpace in the buttom-right corner
+		int tmp = Util.getAbsolutePosition(n-1, n-1, n);
 		p.getPuzzleComponents()[n-1][n-1] = new FreeSpace(tmp, tmp);
 				
 		
 		Random r = new Random();
 		
 		// shuffle
-		for (int i =0; i<n*n-2; i++)
+		for (int i =0; i<n*n-1; i++)
 		{
-			int posToSwap = r.nextInt(n * n - 2 - i ) + i;
+			int posToSwap = r.nextInt(n * n - 1 - i ) + i;
 			Log.i("val", i+" "+" swap "+posToSwap);
 			swapComponents(i, posToSwap, n, c);
 		}
@@ -92,7 +92,7 @@ public class PuzzleFactory {
 	 * @param p The {@link Puzzle}
 	 * @return
 	 */
-	public static boolean isSolvable(Puzzle p){
+	private static boolean isSolvable(Puzzle p){
 		
 		int sum = 0;
 		int n = p.getN();

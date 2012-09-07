@@ -110,7 +110,7 @@ public class Game {
 	 */
 	public void executeMove(Move m) throws InvalidMoveException {
 		
-		if (isValidMove(m))
+		if (!isValidMove(m))
 			throw new InvalidMoveException();
 		
 		PuzzleComponent c = puzzle.getComponentAt(m.getSourcePosition());

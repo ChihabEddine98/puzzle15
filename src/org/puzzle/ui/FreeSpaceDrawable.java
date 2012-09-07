@@ -48,7 +48,7 @@ public class FreeSpaceDrawable implements Drawable{
 	public void draw(Canvas c, Paint paint) {
 		paint.setColor(Color.WHITE);
 		paint.setStyle(Style.FILL); 
-		c.drawRect(x, y, width, width, paint);
+		c.drawRect(x, y, x+width, y+width, paint);
 	}
 	
 	public FreeSpace getFreeSpace(){
