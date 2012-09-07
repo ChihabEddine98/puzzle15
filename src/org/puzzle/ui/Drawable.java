@@ -1,6 +1,7 @@
 package org.puzzle.ui;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
 
 /**
  * 
@@ -8,23 +9,19 @@ import android.graphics.Canvas;
  *
  */
 public interface Drawable {
-	
-	/**
-	 * This method is called by the 
-	 * @param c
-	 */
-	public void draw(Canvas c);
+
 	
 	public int getX();
 	public int getY();
 	public void setX(int x);
 	public void setY(int y);
+
 	
 	/**
-	 * Determines, if some screen coordinates belongs to this Drawable or not
-	 * @param x
-	 * @param y
+	 * This method is called by the {@link PuzzleCanvas} to draw this component on screen 
+	 * @param c
 	 */
-	public boolean hasCoordinates(int x, int y);
+
+	void draw(Canvas c, Paint paint);
 
 }

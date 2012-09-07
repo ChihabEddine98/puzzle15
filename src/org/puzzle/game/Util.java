@@ -1,5 +1,8 @@
 package org.puzzle.game;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Pair;
 
 public class Util {
@@ -25,6 +28,26 @@ public class Util {
 	 */
 	public static Pair<Integer, Integer> getArrayCoordinate(int absolutePosition, int n){
 		return new Pair<Integer, Integer>(absolutePosition/n, absolutePosition % n);
+	}
+	
+	
+	/**
+	 * Loads a bitmap and scales it to the required width and height
+	 * @param res
+	 * @param resId
+	 * @param reqWidth
+	 * @param reqHeight
+	 * @return
+	 */
+	public static Bitmap loadBitmap(Resources res, int resId,
+	        int reqWidth, int reqHeight) {
+		
+			Bitmap bitmap = BitmapFactory.decodeResource(res, resId);
+			bitmap = Bitmap.createScaledBitmap(bitmap, reqWidth, reqHeight, true);
+			
+			
+			return bitmap;
+
 	}
 	
 }

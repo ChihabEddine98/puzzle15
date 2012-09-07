@@ -24,18 +24,19 @@ public class PuzzleFactory {
 		Puzzle p = new Puzzle(n);
 		int tmp = Util.getAbsolutePosition(n-1, n-1, n);
 		
-		// Place the FreeSpace in the buttom-right
-		p.getPuzzleComponents()[n-1][n-1] = new FreeSpace(tmp, tmp);
 		
 		
 		PuzzleComponent[][] c = p.getPuzzleComponents();
 		
 		for (int i = 0; i<n; i++)
 			for (int j = 0; j<n; j++){
-				int pos =Util.getAbsolutePosition(i, j, n);
-				c[i][j] = new PuzzleTile(pos, pos); // TODO add bitmap 
+				int pos = Util.getAbsolutePosition(i, j, n);
+					c[i][j] = new PuzzleTile(pos, pos);
 			}
 		
+		// Place the FreeSpace in the buttom-right corner
+		p.getPuzzleComponents()[n-1][n-1] = new FreeSpace(tmp, tmp);
+				
 		
 		Random r = new Random();
 		

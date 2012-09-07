@@ -106,7 +106,6 @@ public class Puzzle {
 	}
 	
 	
-	
 	void setSolvable(boolean solvable){
 		this.solvable = solvable;
 	}
