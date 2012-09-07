@@ -2,6 +2,7 @@ package org.puzzle;
 
 import org.puzzle.game.Game;
 import org.puzzle.game.Puzzle;
+import org.puzzle.game.PuzzleTile;
 import org.puzzle.game.Util;
 import org.puzzle.game.event.PuzzleGeneratedEvent;
 import org.puzzle.game.event.PuzzleGeneratedListener;
@@ -32,7 +33,10 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements PuzzleGeneratedListener,
 														  PuzzleSolvedListener,
 														  OnClickListener {
-	
+	/**
+	 * Change here the playfield size.
+	 * The number of {@link PuzzleTile}s is N*N
+	 */
 	private static final int N = 4;
 	
 	private Game game;
