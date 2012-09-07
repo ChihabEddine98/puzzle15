@@ -32,20 +32,14 @@ public class PuzzleCanvas extends View implements View.OnTouchListener,
 	    this.setOnTouchListener(this);
 	    paint = new Paint();
 	    drawables = new ArrayList<Drawable>();
-	    setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 20));
+	   
 	  }
 	
 	
 	
 	public void setPuzzle(Puzzle p){
-		int w = getWidth();
-		LayoutParams params = getLayoutParams();
-		params.height = w;
-		params.width = w;
 		
-		setLayoutParams(params);
-		
-		Log.i("set puzzle", w+" "+getWidth()+" "+ getHeight());
+		Log.i("set puzzle"," "+getWidth()+" "+ getHeight());
 		invalidate();
 	}
 	  

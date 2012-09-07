@@ -8,14 +8,19 @@ import org.puzzle.ui.PuzzleCanvas;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements PuzzleGeneratedListener, 
@@ -30,7 +35,7 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
 	private View loadingView;
 	private View puzzleView;
 	
-	private FrameLayout canvasPlaceHolder;
+	private RelativeLayout canvasPlaceHolder;
 	private PuzzleCanvas canvas;
 	private TextView infoLabel;
 	
@@ -84,21 +89,15 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
 		
    	 	Log.i("solvable", ""+solvable);
    	 	
+	   	
+   	 	
 		runOnUiThread(new Runnable() {
 		     public void run() {
 		    	
 		    	 mainLayout.removeView(loadingView);
 		    	 mainLayout.addView(puzzleView);
 		    	 
-		    	 
-		    	 if (canvasPlaceHolder== null)
-		    	 {
-		    		 canvasPlaceHolder = (FrameLayout) findViewById(R.id.puzzlePlaceHolder);
-		    		 canvasPlaceHolder.addView(canvas);
-		    	 }
-		    	 
-		    	 canvas.setPuzzle(e.getPuzzle());
-		    	 
+		    	 setPuzzle(e.getPuzzle());
 		    	 
 		    	 if (solvable)
 		    		 updateStatusText("Lösbar");
@@ -109,6 +108,42 @@ public class MainActivity extends Activity implements PuzzleGeneratedListener,
 		});
 		
 		
+	}
+	
+	
+	private void setPuzzle(final Puzzle p){
+		
+		runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// inject lazily
+			   	 if (canvasPlaceHolder== null)
+			   	 {
+			   		 canvasPlaceHolder = (RelativeLayout) findViewById(R.id.puzzlePlaceHolder);
+			   		 Log.i("deb", "CPH "+canvasPlaceHolder.getWidth()+" "+canvasPlaceHolder.getHeight());
+			   		 
+			   		 
+			   		Display display = getWindowManager().getDefaultDisplay();
+			   		Point size = new Point();
+			   		display.getSize(size);
+			   		int width = size.x;
+			   		int margin = 10;
+			   		
+			   		 RelativeLayout.LayoutParams params = 
+			   				 new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, width-2*margin);
+			   		 params.addRule(RelativeLayout.CENTER_IN_PARENT);
+			   		 params.setMargins(margin, 0, margin, 0);
+			   		 
+			   		 canvasPlaceHolder.addView(canvas, params);
+			   		 
+			   		 
+			   	 }
+			   	 
+		    	 canvas.setPuzzle(p);
+		    	
+			}
+		});
 	}
 	
 	
